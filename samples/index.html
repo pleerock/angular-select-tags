@@ -1,0 +1,383 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>select-tags sample</title>
+
+    <link rel="stylesheet" href="../../open-dropdown/src/open-dropdown.css"/>
+    <link rel="stylesheet" href="../../select-items/dist/angular-select-items.css"/>
+    <link rel="stylesheet" href="../../tags-input/dist/angular-tags-input.css"/>
+    <link rel="stylesheet" href="../src/select-tags.css"/>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../../auto-grow-input/dist/angular-auto-grow-input.js"></script>
+    <script src="../../select-options/dist/angular-select-options.js"></script>
+    <script src="../../disable-all/dist/angular-disable-all.js"></script>
+    <script src="../../open-dropdown/src/open-dropdown.js"></script>
+    <script src="../../tags-input/dist/angular-tags-input.js"></script>
+    <script src="../../select-items/dist/angular-select-items.js"></script>
+    <script src="selectTagsSample.js"></script>
+
+    <script src="../src/selectTags.js"></script>
+    <script src="../src/select-tags.js"></script>
+
+    <style>
+        h1 i{ font-size: 12px; font-weight: normal; font-style: italic; color: #ffa82f; }
+        .custom-selected { background: #ffa82f; }
+        .custom-item:hover { background: #eee; }
+        .custom-item { cursor: pointer; }
+    </style>
+
+</head>
+<body ng-app="selectTagsSample" ng-controller="SelectTagsSampleCtrl">
+
+    <!-- =================================================================== -->
+
+    <h1>Basic usage:</h1>
+
+    <select-tags
+            placeholder="select tags"
+            ng-model="selectedUsers"
+            select-options="user.name for user in users">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Disabled:</h1>
+
+    <select-tags
+            disabled="disabled"
+            ng-model="selectedUsers"
+            select-options="user.name for user in users">
+    </select-tags>
+
+    <button ng-click="disabled = !disabled">enable / disable it</button>
+
+    <!-- =================================================================== -->
+
+    <h1>With limited number of items in the dropdown:</h1>
+
+    <select-tags
+            ng-model="selectedUsers"
+            dropdown-show-limit="4"
+            select-options="user.name for user in users">
+    </select-tags>
+
+    <!-- =================================================================== -->
+
+    <h1>Multiple items with ability to select/deselect all at once:</h1>
+
+    <select-tags select-options="user.name for user in users"
+                  ng-model="selectedUsers"
+                  select-all="true">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Grouped elements:</h1>
+
+    <select-tags select-options="user.name for user in users group by user.group"
+                  ng-model="selectedUsers">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Grouped elements with select all grouped checkbox:</h1>
+
+    <select-tags select-options="user.name for user in users group by user.group"
+                  group-select-all="true"
+                  ng-model="selectedUsers">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Grouped elements with custom decorator</h1>
+
+    <select-tags select-options="user.name for user in users group by user.group"
+                  group-select-all="true"
+                  ng-model="selectedUsers"
+                  dropdown-group-decorator="dropdownGroupDecorator">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Multiselect with customized labels:</h1>
+
+    <select-tags select-options="user.name for user in users"
+                  ng-model="selectedUsers"
+                  select-all="true"
+                  select-all-label="SELECT THEM ALL"
+                  deselect-all-label="DESELECT THEM ALL">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Multiselect with hidden controls</h1>
+
+    <select-tags select-options="user.name for user in users"
+                  ng-model="selectedUsers"
+                  select-all="true"
+                  hide-controls="true">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Multiselect with ordered items</h1>
+
+    <select-tags select-options="user.name for user in users order by name"
+                  ng-model="selectedUsers">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Multiselect track by some property:</h1>
+
+    <select-tags select-options="user.name for user in users track by user.email order by name"
+                  ng-model="selectedUsers">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Select object partitions</h1>
+
+    <select-tags select-options="user.name as user.name for user in users"
+                  ng-model="selectedNames">
+    </select-tags>
+
+    <br/>
+    Selected names are: <b ng-repeat="selectedName in selectedNames">{{ selectedName }} </b><br/>
+    Model: <small>{{ selectedNames }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Example with custom filter</h1>
+
+    <select-tags select-options="user.name for user in users"
+                  ng-model="selectedUsers"
+                  select-all="true"
+                  filters="[customFilter]">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Example with custom dropdown decorator</h1>
+
+    <select-tags select-options="user.name for user in users"
+                  ng-model="selectedUsers"
+                  select-all="true"
+                  dropdown-item-decorator="dropdownItemDecorator">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Example with custom tags decorator</h1>
+
+    <select-tags select-options="user.name for user in users"
+                  ng-model="selectedUsers"
+                  select-all="true"
+                  tags-decorator="tagDecorator">
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Using ng-change to run a callback when model is changing</h1>
+
+    <select-tags select-options="user.name for user in users"
+                  ng-model="selectedUsers"
+                  on-change="changed(selectedUsers)"
+                  select-all="true">
+    </select-tags>
+
+    <br/>
+    Is $scope.changed called: <b>{{ isChangedCalled ? 'yes' : 'no' }}</b><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Tag add with minimal 3 characters length word</h1>
+    <select-tags placeholder="Add your tags here"
+                ng-model="myTags2"
+                min-length="3"
+                select-options="user.name for user in users">
+    </select-tags>
+
+    <!-- =================================================================== -->
+
+    <h1>Tag add with maximal 5 characters length word</h1>
+    <select-tags placeholder="Add your tags here"
+                ng-model="myTags3"
+                max-length="5"
+                select-options="user.name for user in users">
+    </select-tags>
+
+    <!-- =================================================================== -->
+
+    <h1>Tag add with maximal number of tags allowed to type (max 5)</h1>
+    <select-tags placeholder="Add your tags here"
+                ng-model="myTags4"
+                max-items="5"
+                select-options="user.name for user in users">
+    </select-tags>
+
+    <!-- =================================================================== -->
+
+    <h1>Tag unique name restriction</h1>
+    <select-tags placeholder="Add your tags here"
+                ng-model="myTags5"
+                unique-names="true"
+                select-options="user.name for user in users">
+    </select-tags>
+
+    <!-- =================================================================== -->
+
+    <h1>Delimiter character that can be used to add separated tags (use "," and ";")</h1>
+    <select-tags placeholder="Add your tags here"
+                ng-model="myTags6"
+                delimiters=",;"
+                select-options="user.name for user in users">
+    </select-tags>
+
+    <!-- =================================================================== -->
+
+    <h1>Persist disabled (cannot add a new tags)</h1>
+    <select-tags placeholder="Add your tags here"
+                no-persist="true"
+                ng-model="myTags6"
+                select-options="user.name for user in users">
+    </select-tags>
+
+    <!-- =================================================================== -->
+
+    <h1>With / without remove button</h1>
+    <select-tags placeholder="Add your tags here"
+                disabled="disable"
+                is-remove-button="isRemoveButton"
+                ng-model="myTags7"
+                select-options="user.name for user in users">
+    </select-tags>
+    <button ng-click="isRemoveButton = !isRemoveButton">with/without remove button</button>
+
+    <!-- =================================================================== -->
+
+    <h1>Restore on backspace press</h1>
+    <select-tags placeholder="Add your tags here"
+                is-restore-on-backspace="isRestoreOnBackspace"
+                ng-model="myTags8"
+                select-options="user.name for user in users">
+    </select-tags>
+    <button ng-click="isRestoreOnBackspace = !isRestoreOnBackspace">with/without restore on backspace button press</button>
+
+    <!-- =================================================================== -->
+
+    <h1>Example with remote items</h1>
+
+    <select-tags ng-model="loadedRepositories"
+                 multiselect="true"
+                 select-all="true"
+                 loading-label="Please wait, loading repositories..."
+                 search="true"
+                 load-promise="loadGithubRepositories"
+                 select-options="repository.name for repository in repositories track by repository.url">
+    </select-tags>
+
+    <br/>
+    Selected repositories are: <b ng-repeat="repo in loadedRepositories">{{ repo.name }} </b><br/>
+    Model: <small>{{ loadedRepositories }}</small><br/>
+
+
+    <!-- =================================================================== -->
+
+    <h1>Example with remote search</h1>
+
+    <select-tags ng-model="loadedRepositories"
+                 multiselect="true"
+                 select-all="true"
+                 loading-label="Please wait, loading repositories..."
+                 search="true"
+                 load-by-keyword-promise="loadGithubRepositoriesByKeyword"
+                 select-options="repository.name for repository in repositories track by repository.url">
+    </select-tags>
+
+    <br/>
+    Selected repositories are: <b ng-repeat="repo in loadedRepositories">{{ repo.name }} </b><br/>
+    Model: <small>{{ loadedRepositories }}</small><br/>
+
+    <!-- =================================================================== -->
+
+    <h1>Select tags with custom dropdown item template</h1>
+
+    <select-tags placeholder="Add your tags here"
+                 select-options="user.name for user in users"
+                 ng-model="selectedUsers"
+                 multiselect="true">
+
+        <div class="custom-item"
+             ng-repeat="user in getDisplayedItems()"
+             ng-click="selectItem(user)"
+             ng-class="{ 'custom-selected': isItemSelected(user) }">
+            <h1>{{ user.name }}</h1>
+            <div>
+                Email: {{ user.email }}
+                Group: {{ user.group }}
+            </div>
+        </div>
+
+    </select-tags>
+
+    <br/>
+    Selected users are: <b ng-repeat="selectedUser in selectedUsers">{{ selectedUser.name }} </b><br/>
+    Model: <small>{{ selectedUsers }}</small><br/>
+
+    <!-- =================================================================== -->
+
+
+</body>
+</html>

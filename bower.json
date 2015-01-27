@@ -1,0 +1,36 @@
+{
+  "name": "angular-select-tags",
+  "description": "A special angular directive used with input to make input to grow as soon as user types text.",
+  "version": "0.0.1",
+  "keywords": ["select-tags", "angular-select-tags", "selectize", "tokenizr", "tokenizer", "tags-input"],
+  "authors": [
+    { "name": "Umed Khudoiberdiev", "email": "info@zar.tj" }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PLEEROCK/angular-select-tags.git"
+  },
+  "main": [
+    "./dist/angular-select-tags.js",
+    "./dist/angular-select-tags.css"
+  ],
+  "ignore": [
+    ".gitignore",
+    ".jshintrc",
+    "package.json",
+    "gulpfile.js",
+    "node_modules",
+    "bower_components",
+    "src",
+    "reports",
+    "samples",
+    "test"
+  ],
+  "dependencies": {
+    "angular": ">= 1.0.8"
+  },
+  "devDependencies": {
+    "angular-mocks": ">= 1.0.8",
+    "angular-scenario": ">= 1.0.8"
+  }
+}
