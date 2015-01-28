@@ -1,6 +1,6 @@
 {
   "name": "angular-select-tags",
-  "description": "A special angular directive used with input to make input to grow as soon as user types text.",
+  "description": "A directive that allows user to add a tokens in the input box and select items from the dropdown",
   "version": "0.0.1",
   "keywords": ["select-tags", "angular-select-tags", "selectize", "tokenizr", "tokenizer", "tags-input"],
   "authors": [
@@ -27,7 +27,11 @@
     "test"
   ],
   "dependencies": {
-    "angular": ">= 1.0.8"
+    "angular": ">= 1.0.8",
+    "angular-select-items": "latest",
+    "angular-open-dropdown": "latest",
+    "angular-select-options": "latest",
+    "angular-tags-input": "latest"
   },
   "devDependencies": {
     "angular-mocks": ">= 1.0.8",

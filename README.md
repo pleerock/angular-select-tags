@@ -1,8 +1,7 @@
 select-tags directive for AngularJS
 ========================
 
-This directive allows your inputs to grow as soon as user types.
-The input's width always fit the text user typed in the input.
+A directive that allows user to add a tokens in the input box and select items from the dropdown.
 
 Open samples/index.html to see the examples how to use this directive.
 

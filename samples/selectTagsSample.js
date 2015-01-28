@@ -19,11 +19,6 @@
      */
     angular.module('selectTagsSample').controller('SelectTagsSampleCtrl', function ($scope, $http) {
 
-        $scope.selectedUsers = [];
-        $scope.selectedNames = [];
-        $scope.loadedRepositories = [];
-        $scope.isRemoveButton = true;
-
         /**
          * Array of data that will be used to show in the select.
          *

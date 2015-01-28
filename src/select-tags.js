@@ -78,7 +78,7 @@
      */
     function selectTags($timeout, $parse) {
         return {
-            scope: true,
+            //scope: true,
             replace: true, // check and confirm if this not cause any issues
             restrict: 'E',
             template: function(element, attrs) {
@@ -120,7 +120,6 @@
                                 attrs.dropdownShowLimit ? 'show-limit="' + attrs.dropdownShowLimit + '"' : '',
                                 attrs.maxItems ? 'selection-limit="' + attrs.maxItems + '"': '',
                                 attrs.searchFilter ? 'search-filter="' + attrs.searchFilter + '"' : '',
-                                attrs.searchKeyword ? 'search-keyword="' + attrs.searchKeyword + '"' : '',
                                 attrs.autoSelect ? 'auto-select="' + attrs.autoSelect + '"' : '',
                                 attrs.selectAll ? 'select-all="' + attrs.selectAll + '"' : '',
                                 attrs.groupSelectAll ? 'group-select-all="' + attrs.groupSelectAll + '"' : '',
@@ -148,8 +147,17 @@
                 // Variables
                 // ---------------------------------------------------------------------
 
-                //var selectItemsCtrl = angular.element(element[0].getElementsByClassName('select-items')[0]).scope();
-                //var tagsInputCtrl = angular.element(element[0].getElementsByClassName('tags-input')[0]).scope();
+                var tagsInputElementCtrl;
+                var getTagsInputElementCtrl = function() {
+                    if (!tagsInputElementCtrl) {
+                        var tagsInputElement = element[0].getElementsByClassName('tags-input')[0];
+                        tagsInputElementCtrl = angular.element(tagsInputElement).controller('tagsInput');
+                    }
+                    return tagsInputElementCtrl;
+                };
+
+                var selectItemsElement = element[0].getElementsByClassName('select-items')[0];
+                var selectItemsElementCtrl = angular.element(selectItemsElement).controller('selectItems');
                 var id = angular.element(element).attr('data-id');
                 scope[id] = { };
 
@@ -203,11 +211,11 @@
 
                         case 13: // KEY "ENTER"
                             if (scope[id].isOpened) {
-                                var broadcastedEvent = scope.$broadcast('select-items.select_active');
+                                var isItemSelected = selectItemsElementCtrl.selectActive();
 
                                 // if item was selected from the item list then we stop propagation to prevent
                                 // tags-input to add a new tag (tag with user's entered value)
-                                if (broadcastedEvent.isItemSelected === true) {
+                                if (isItemSelected === true) {
                                     e.stopPropagation();
                                     if (closeDropdownOnTagAdd)
                                         scope[id].isOpened = false;  // after item is selected automatically close dropdown
@@ -221,22 +229,30 @@
                 // when new item selected in the select-items list we must update caret position in the
                 // select-tags-input directive and also clear input of that
                 scope.$on('select-items.item_selected', function(event, data) {
+                    if (data.element !== selectItemsElement)
+                        return;
+
                     // update caret positions based on selection results
                     if (data.isNewSelection)
                         ++scope[id].caretPosition;
                     else if (scope[id].caretPosition > 0 && scope[id].caretPosition > data.index)
                         --scope[id].caretPosition;
 
+
                     $timeout(function() { // timeout is required to prevent lag of tags-input
-                        scope.$broadcast('tags-input.clear_input'); // broadcast that we need to clear input content
+
+                        getTagsInputElementCtrl().clearInputValue();
+                        //scope.$broadcast('tags-input.clear_input'); // broadcast that we need to clear input content
                     });
                 });
 
                 // when user types a text into tags input box, we must filter our items in the select-items directive
                 // to show only items that are matched what user typed
-                scope.$on('tags-input.text_entered', function(event, text) {
-                    scope[id].userInputText = text;
-                    scope[id].isOpened = true; // open dropdown automatically as user types
+                $timeout(function() {
+                    getTagsInputElementCtrl().onTextEntered(function(text) {
+                        scope[id].userInputText = text;
+                        scope[id].isOpened = true; // open dropdown automatically as user types
+                    });
                 });
 
             }
