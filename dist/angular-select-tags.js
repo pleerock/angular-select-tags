@@ -269,7 +269,7 @@
                         scope[id].userInputText = text;
                         scope[id].isOpened = true; // open dropdown automatically as user types
                     });
-                });
+                }, 300 /* temporary solution - find way to solve this problem */ );
 
             }
         };

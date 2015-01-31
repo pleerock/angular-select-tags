@@ -27,14 +27,9 @@
     "test"
   ],
   "dependencies": {
-    "angular": ">= 1.0.8",
+    "angular": "1.2.25",
     "angular-select-items": "latest",
     "angular-open-dropdown": "latest",
-    "angular-select-options": "latest",
-    "angular-tags-input": "latest"
-  },
-  "devDependencies": {
-    "angular-mocks": ">= 1.0.8",
-    "angular-scenario": ">= 1.0.8"
+    "angular-select-options": "latest"
   }
 }
