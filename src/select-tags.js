@@ -211,6 +211,7 @@
 
                         case 13: // KEY "ENTER"
                             if (scope[id].isOpened) {
+                                e.preventDefault(); // this is required if for example to prevent form update
                                 var isItemSelected = selectItemsElementCtrl.selectActive();
 
                                 // if item was selected from the item list then we stop propagation to prevent
