@@ -66,6 +66,7 @@
      *                               checkboxes and radio boxes
      * @param {boolean} hideNoSelection If set to true, then all "nothing is selected" label and checkbox will not be
      *                                      shown. This label show only in single select mode
+     * @param {boolean} hideSelectedItems If set to true, then already selected items will not be shown in the dropdown
      * @param {string} searchPlaceholder Custom placeholder text that will be in the search box
      * @param {string} selectAllLabel Custom text that will be used as a "select all" label.
      *                                  This label show only in single select mode
@@ -112,14 +113,14 @@
                             attrs.uniqueNames ? 'unique-names="' + attrs.uniqueNames + '"': '',
                             attrs.delimiters ? 'delimiters="' + attrs.delimiters + '"': '',
                             attrs.noPersist ? 'no-persist="' + attrs.noPersist + '"': '',
-                            'is-remove-button="' + attrs.isRemoveButton + '"',
-                            'is-restore-on-backspace="' + attrs.isRestoreOnBackspace + '"',
+                            attrs.isRemoveButton ? 'is-remove-button="' + attrs.isRemoveButton + '"' : '',
+                            attrs.isRestoreOnBackspace ? 'is-restore-on-backspace="' + attrs.isRestoreOnBackspace + '"' : '',
                             'ng-model="' + attrs.ngModel + '"',
                             attrs.onChange ? 'on-change="' + attrs.onChange + '"' : '',
                             'select-options="' + attrs.selectOptions + '"',
                             'caret-position="' + id + '.caretPosition"',
-                            'decorator="' + attrs.tagsDecorator + '"',
-                            'disabled="' + attrs.disabled + '"',
+                            attrs.tagsDecorator ? 'decorator="' + attrs.tagsDecorator + '"' : '',
+                            attrs.disabled ? 'disabled="' + attrs.disabled + '"' : '',
                             '></tags-input>',
                     '<open-dropdown class="open-dropdown" ',
                                     'for="' + id + '" ',
@@ -142,6 +143,7 @@
                                 attrs.groupSelectAll ? 'group-select-all="' + attrs.groupSelectAll + '"' : '',
                                 attrs.hideControls ? 'hide-controls="' + attrs.hideControls + '"' : '',
                                 attrs.hideNoSelection ? 'hide-no-selection="' + attrs.hideNoSelection + '"' : '',
+                                attrs.hideSelectedItems ? 'hide-selected-items="' + attrs.hideSelectedItems + '"' : '',
                                 attrs.selectAllLabel ? 'select-all-label="' + attrs.selectAllLabel + '"' : '',
                                 attrs.deselectAllLabel ? 'deselect-all-label="' + attrs.deselectAllLabel + '"' : '',
                                 attrs.noSelectionLabel ? 'no-selection-label="' + attrs.noSelectionLabel + '"' : '',
