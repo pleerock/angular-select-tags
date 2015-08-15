@@ -1,7 +1,7 @@
 {
   "name": "angular-select-tags",
   "description": "A directive that allows user to add a tokens in the input box and select items from the dropdown",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": ["select-tags", "angular-select-tags", "selectize", "tokenizr", "tokenizer", "tags-input"],
   "authors": [
     { "name": "Umed Khudoiberdiev", "email": "info@zar.tj" }
